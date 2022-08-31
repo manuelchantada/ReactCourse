@@ -18,7 +18,9 @@ function FavouritesPage() {
   return (
     <section>
       <h1>Favourites Page</h1>
+      <ul>
         {content}
+      </ul>
     </section>
   );
 }
