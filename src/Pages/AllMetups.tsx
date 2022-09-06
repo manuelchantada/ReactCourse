@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import MeetupList from "../components/Meetups/MeetupList";
+import Meetup from "../models/metup";
+import React from "react";
 
-function AllMetupsPage() {
+const AllMetupsPage = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [laodedMeetups, setLoadedMeetups] = useState([]);
+  const [laodedMeetups, setLoadedMeetups] = React.useState<Meetup[]>([])
 
   useEffect(() => {
     setIsLoading(true);
@@ -14,8 +16,7 @@ function AllMetupsPage() {
         return response.json();
       })
       .then((data) => {
-        const meetups = [];
-
+        let meetups: Meetup[] = [];
         for(const key in data){
           const meetup = {
             id: key,

@@ -1,33 +1,34 @@
 import Card from "../ui/Card";
 import classes from "./MeetupItem.module.css";
-import { useContext } from "react";
 import {useNavigate} from 'react-router-dom'
-import FavouriteContext from "../../store/favourite-context";
+import Meetup from "../../models/metup";
+import React from "react";
+import { FavouriteContext } from "../../store/favourite-context";
 
-function MeetupItem(props) {
+const MeetupItem = (props: {meetup: Meetup, deleteMeetupHandler: (id: string) => void, enableDelete: boolean}) => {
   const navigate = useNavigate();
-  const favouriteContext = useContext(FavouriteContext);
+  const favouriteContext = React.useContext(FavouriteContext);
 
-  const itemIsFavourite = favouriteContext.itemIsFavourite(props.id)
+  const itemIsFavourite = favouriteContext.itemIsFavourite(props.meetup.id!)
 
       function deleteMeetupHandler(){
           fetch(
-              'https://reactcourse-d432c-default-rtdb.europe-west1.firebasedatabase.app/meetups/'+ props.id+'.json',
+              'https://reactcourse-d432c-default-rtdb.europe-west1.firebasedatabase.app/meetups/'+ props.meetup.id+'.json',
               {
                   method: 'DELETE',
               }
           ).then(() => {            
-          props.deleteMeetupHandler(props.id);
+          props.deleteMeetupHandler(props.meetup.id!);
             navigate('/');
           });
       }
 
   function toggleFavouriteStatusHandler() {
     if (itemIsFavourite){
-      favouriteContext.removeFavourite(props.id);
+      favouriteContext.removeFavourite(props.meetup.id!);
     } else{
       favouriteContext.addFavourite({
-        ...props
+        ...props.meetup
       })
     }
   }
@@ -36,12 +37,12 @@ function MeetupItem(props) {
     <li className={classes.item}>
       <Card>
         <div className={classes.image}>
-          <img src={props.image} alt={props.title}></img>
+          <img src={props.meetup.image} alt={props.meetup.title}></img>
         </div>
         <div className={classes.content}>
-          <h3>{props.title}</h3>
-          <address>{props.address}</address>
-          <p>{props.description}</p>
+          <h3>{props.meetup.title}</h3>
+          <address>{props.meetup.address}</address>
+          <p>{props.meetup.description}</p>
         </div>
         <div className={classes.actions}>
           <button onClick={toggleFavouriteStatusHandler}>{itemIsFavourite ? 'Remove from Favourites' : 'To Favourites' }</button>

@@ -1,11 +1,11 @@
 import { Route, Routes } from "react-router-dom";
 import Layout from "./components/layout/Layout";
-import AllMetupsPage from "./Pages/AllMetups";
 import FavouritesPage from "./Pages/Favourites";
 import NewMetupsPage from "./Pages/NewMeetup";
-import {FavouritesContextProvider} from "./store/favourite-context";
+import FavouritesContextProvider from "./store/favourite-context";
+import AllMetupsPage from "./Pages/AllMetups";
 
-function App() {
+const App = () => {
   return (
     <FavouritesContextProvider>
     <Layout>
