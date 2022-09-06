@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import classes from "./MainNavigation.module.css";
 import {useContext} from 'react'
-import FavouriteContext from "../../store/favourite-context";
+import { FavouriteContext } from "../../store/favourite-context";
 
-function MainNavigation() {
+const MainNavigation = () => {
   const favouriteContext = useContext(FavouriteContext);
 
   let badgetContent = favouriteContext.totalFavourites !== 0 ? 

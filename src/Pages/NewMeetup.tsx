@@ -1,9 +1,10 @@
 import {useNavigate} from 'react-router-dom'
 import NewMeetupForm from "../components/Meetups/NewMeetupForm";
+import Meetup from '../models/metup';
 
-function NewMetupsPage() {
+const NewMetupsPage = () => {
   const navigate = useNavigate();
-    function addMeetupHandler(meetupData){
+    function addMeetupHandler(meetupData: Meetup){
         fetch(
             'https://reactcourse-d432c-default-rtdb.europe-west1.firebasedatabase.app/meetups.json',
             {
